@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Marca>
+
+@{
+    ViewData["Title"] = "Listagem de Marcas";
+}
+
+<h1>Listagem de Marcas</h1>
+
+<p>
+    <a asp-controller="Marcas" asp-action="Cadastrar" class="btn btn-primary">Criar uma nova marca</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Detalhar", "Detalhar", new { id = item.Id }, new { @class = "btn btn-info" })
+                    <form method="post" asp-action="Excluir" style="display: inline">
+                        <input name="id" id="id" value="@item.Id" hidden />
+                        <input type="submit" value="Excluir" class="btn btn-danger" />
+                    </form>                
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
